@@ -4874,6 +4874,9 @@ print('\nTotal counts per character:')
 pprint(count)
 
 
-# print('\nTotal number of characters: ', list(count.values()) )
+
+# display total number of characters detected
+print('\nTotal number of characters: %d ' % sum(list(count.values())) )
+
 
 
