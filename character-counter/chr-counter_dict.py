@@ -4864,7 +4864,7 @@ count = {}
 
 
 # character counter loop
-for char in message.lower():
+for char in message.upper():
 	count.setdefault(char, 0)
 	count[char]+=1
 
