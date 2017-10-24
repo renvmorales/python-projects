@@ -1,3 +1,4 @@
+from pprint import pprint
 
 
 message = '''The Project Gutenberg EBook of Romeo and Juliet, by William Shakespeare
@@ -4870,7 +4871,7 @@ for char in message.lower():
 
 # display frequencies per char
 print('\nTotal counts per character:')
-print(count)
+pprint(count)
 
 
 # print('\nTotal number of characters: ', list(count.values()) )
