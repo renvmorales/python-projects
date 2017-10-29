@@ -53,3 +53,32 @@ phoneNumbers = [phone[0] for phone in allPhones]
 
 # print(phoneNumbers)
 print('Total phone numbers found: %d' % len(phoneNumbers))
+
+
+
+
+# set an email adress Regex 
+emailRegex = re.compile(r'''
+	# email pattern  123saf._+@234asfas.com
+	(
+	([0-9a-zA-Z._+]+)		# email username 
+	@			# 'at'@ 
+	([0-9a-zA-Z._+]+)		# email domain
+	)
+	''', re.VERBOSE)
+
+
+
+allEmails = emailRegex.findall(document)
+# print(allEmails[0:10])
+
+
+# store in a list all emails from query
+foundEmails = [email[0] for email in allEmails]
+
+
+# print(foundEmails)
+print('Total emails found: %d' % len(foundEmails))
+
+
+
