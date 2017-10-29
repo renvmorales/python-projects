@@ -73,7 +73,10 @@ allEmails = emailRegex.findall(document)
 # print(allEmails[0:10])
 
 
-# store in a list all emails from query
+
+# store in a list all emails from query 
+# (there might be some unicode utf-8 issue: some emails start and/or end 
+# with 'U')
 foundEmails = [email[0] for email in allEmails]
 
 
@@ -82,3 +85,10 @@ print('Total emails found: %d' % len(foundEmails))
 
 
 
+# aggregate all resulting matches and place it in a very long list
+result = '\n'.join(phoneNumbers) + '\n' + '\n'.join(foundEmails)
+
+
+print('\nCopying all matched expressions to clipboard ...')
+print('You can now paste it on you favorite editor.')
+pyclip.copy(result)
