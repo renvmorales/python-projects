@@ -96,11 +96,13 @@ allEmails = emailRegex.findall(document)
 # with 'U')
 foundEmails = [email[0] for email in allEmails]
 
-# print(foundEmails[0:10])
 
 
 
 
+
+######################################################################
+# Correcting misplaced 'U' characters 
 # Regex for reading errors with '.edU' ending adress
 eduURegex = re.compile(r'(\.)eduU')
 
@@ -121,18 +123,16 @@ URegex = re.compile(r'((U)(\w))')
 
 # find all 'U' patterns
 errors = URegex.findall(foundEmails)
-# print(errors[0:10])
+
 
 # total number of matched patterns
-
-print("\nTotal errors with a 'U' at the beginning: %d" % len(errors))
-
+print("Total errors with a 'U' at the beginning: %d" % len(errors))
 
 
-# Discard the first letter
+# Discard only the first ('U') character
 foundEmails = URegex.sub(r'\3', foundEmails)
+###################################################################
 
-# print(foundEmails.split()[0:10])
 
 
 print('\nTotal emails found: %d' % len(foundEmails.split()))
@@ -142,7 +142,7 @@ print('\nTotal emails found: %d' % len(foundEmails.split()))
 
 
 
-# aggregate all resulting matches in a very long list
+# aggregate all resulting matches in a very long string
 result = phoneNumbers + '\n' + foundEmails
 
 
