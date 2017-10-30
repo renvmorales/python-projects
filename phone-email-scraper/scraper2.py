@@ -1,5 +1,10 @@
 #!/usr/bin/python3
 
+# This is an improved version for the phone and email scraper
+# It deals with 'broken' unicode-8 characters at the beginning and  
+# end of some emails. It also correctly detects phone numbers even
+# with misplaced whitespaces in the middle of the code area.
+
 import pyperclip as pyclip    # install module via pip3 install pyperclip
 import sys
 import re
