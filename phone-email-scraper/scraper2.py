@@ -54,21 +54,23 @@ allPhones = phoneRegex.findall(document)
 
 
 # store in a list all phone numbers from query
+# (check this list, there are some extra spaces and unnecessary newlines...)
 phoneNumbers = [phone[0] for phone in allPhones]
 
 
 
-
-# Regex for initial and middle whitespaces
+##################################################################
+# Correcting phone numbers list
+# Regex for correcting initial whitespaces
 whitespaceRegex = re.compile(r'((\n|\s)(\d))')
-# print(whitespaceRegex.findall(' '.join(phoneNumbers)))
 
 # discarding these whitespaces
 phoneNumbers = whitespaceRegex.sub(r'\3', '\n'.join(phoneNumbers))
 
-
 print('Total phone numbers found: %d' % len(phoneNumbers.split('\n')))
-# print(phoneNumbers)
+###################################################################
+
+
 
 
 
