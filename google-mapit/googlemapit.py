@@ -4,8 +4,8 @@ import webbrowser, sys, pyperclip
 
 
 # adress as optional external argument 
-# >> googlemapit.py 196 Lisbon Av. USA
-# where sys.argv = ['googlemapit.py', '196', 'Lisbon', 'Av.', 'USA']
+# >> googlemapit.py 192 Lisbon Av. USA
+# where sys.argv = ['googlemapit.py', '192', 'Lisbon', 'Av.', 'USA']
 
 
 if len(sys.argv)>1:
