@@ -21,8 +21,8 @@ print('\t' + address2)
 try:	
 	res1 = requests.get(address1) # get data from address
 	res1.raise_for_status() # test if connection is successful
-	res2 = requests.get(address2) # get data from address
-	res2.raise_for_status() # test if connection is successful
+	res2 = requests.get(address2) 
+	res2.raise_for_status() 
 except requests.exceptions.HTTPError:
 	print('\nYou have entered an incorrect address.')
 	sys.exit()
