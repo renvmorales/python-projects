@@ -14,6 +14,10 @@ from bs4 import BeautifulSoup
 keywords = ' '.join(sys.argv[1:])
 
 
+print('\nGoogling the keywords:')
+print('\t%s' % keywords)
+
+
 # url to google using the keywords
 google = 'https://www.google.com.br/search?q=' + keywords
 
@@ -30,6 +34,23 @@ res_google = requests.get(google)
 
 # get a soup object for parsing
 soup = BeautifulSoup(res_google.text, 'html.parser')
+
+
+
+# find all elements related to a link result
+linkElem = soup.select('.r a')
+
+
+
+ntabs = 5
+
+for i in range(ntabs):
+	webbrowser.open_new_tab('http://google.com' + 
+		linkElem[i].get('href'))
+
+
+
+
 
 
 
