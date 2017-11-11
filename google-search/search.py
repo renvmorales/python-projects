@@ -42,9 +42,12 @@ linkElem = soup.select('.r a')
 
 
 
-ntabs = 5
 
-for i in range(ntabs):
+ntabs = 5  # set a default number of new tabs to open
+minLinks = min(ntabs, len(linkElem)) # consider allways the smaller number of available links
+
+# loop to open each new googling result in a different tab
+for i in range(minLinks):
 	webbrowser.open_new_tab('http://google.com' + 
 		linkElem[i].get('href'))
 
