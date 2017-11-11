@@ -1,0 +1,23 @@
+#!/usr/bin/python3
+
+import webbrowser, requests, sys
+
+
+# execute as python search.py learning python programming 
+
+
+# get only a string with all the keywords
+keywords = ' '.join(sys.argv[1:])
+
+
+# url to google using the keywords
+google = 'https://www.google.com.br/search?q=' + keywords
+
+
+# open a new window with the results 
+webbrowser.open(google, new=1)
+
+
+
+# get a response object for the google search
+res_google = requests.get(google)
