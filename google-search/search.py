@@ -3,7 +3,8 @@
 import webbrowser, requests, sys
 
 
-# execute as python search.py learning python programming 
+# execute with external argument:
+# >> python search.py learning python programming 
 
 
 # get only a string with all the keywords
