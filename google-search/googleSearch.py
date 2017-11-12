@@ -46,11 +46,15 @@ linkElem = soup.select('.r a')
 ntabs = 5  # set a default number of new tabs to open
 minLinks = min(ntabs, len(linkElem)) # consider allways the smaller number of available links
 
-# loop to open each new googling result in a different tab
-for i in range(minLinks):
-	sleep(500/1000)	# wait for 500 ms
-	webbrowser.open_new_tab('http://google.com' + 
-		linkElem[i].get('href'))
+if minLinks > 0:
+	# loop to open each new googling result in a different tab
+	for i in range(minLinks):		
+		sleep(500/1000)	# wait for 500 ms
+		webbrowser.open_new_tab('http://google.com' + 
+			linkElem[i].get('href'))
+else:
+	print('\nNo results with keywords \" %s \" found.' % keywords)
+
 
 
 
