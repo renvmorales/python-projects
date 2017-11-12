@@ -2,8 +2,8 @@
 
 import requests
 from string import punctuation
-
-
+from wordcloud import WordCloud
+import matplotlib.pyplot as plt
 
 
 # url address with an online version of Hamlet' Shakespeare
@@ -32,3 +32,22 @@ nopunc = [char for char in hamlet if char not in punctuation]
 
 # join all characters into a single string
 nopunc = ''.join(nopunc)
+
+
+
+
+
+# create a custom word cloud
+wordcloud = WordCloud(max_words=50, width=800, height=400, 
+	collocations=False, #stopwords=[],
+	background_color='white').generate(nopunc)
+
+
+
+
+print('\nCreating a word cloud of all words ...')
+
+# display word cloud
+plt.imshow(wordcloud, interpolation="bilinear")
+plt.axis("off")
+plt.show()
