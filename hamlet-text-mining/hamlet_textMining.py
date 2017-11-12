@@ -6,7 +6,7 @@ from wordcloud import WordCloud
 import matplotlib.pyplot as plt
 
 
-# url address with an online version of Hamlet' Shakespeare
+# url address with an online version of Shakespeare's Hamlet
 url = 'http://erdani.com/tdpl/hamlet.txt'
 print('\nOpening the following address:')
 print('\t%s' % url)
