@@ -1,7 +1,7 @@
 #!/usr/bin/python3
 
 import requests
-import nltk
+from string import punctuation
 
 
 
@@ -22,7 +22,13 @@ except requests.exceptions.HTTPError:
 
 
 
-# get all the work in a single string
+# get the integral work into a single string
 hamlet = res.text
 
 
+# get all characters back with no punctuation
+nopunc = [char for char in hamlet if char not in punctuation]
+
+
+# join all characters into a single string
+nopunc = ''.join(nopunc)
