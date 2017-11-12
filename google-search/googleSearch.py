@@ -2,7 +2,7 @@
 
 import webbrowser, requests, sys
 from bs4 import BeautifulSoup
-
+from time import sleep
 
 # execute with external argument:
 # >> python search.py learning python programming 
@@ -48,6 +48,7 @@ minLinks = min(ntabs, len(linkElem)) # consider allways the smaller number of av
 
 # loop to open each new googling result in a different tab
 for i in range(minLinks):
+	sleep(0.5)
 	webbrowser.open_new_tab('http://google.com' + 
 		linkElem[i].get('href'))
 
