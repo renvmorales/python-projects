@@ -48,7 +48,7 @@ minLinks = min(ntabs, len(linkElem)) # consider allways the smaller number of av
 
 # loop to open each new googling result in a different tab
 for i in range(minLinks):
-	sleep(0.5)
+	sleep(500/1000)	# wait for 500 ms
 	webbrowser.open_new_tab('http://google.com' + 
 		linkElem[i].get('href'))
 
