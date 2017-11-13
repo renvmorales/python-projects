@@ -29,8 +29,8 @@ def get_text(file_path):
 
 
 def main():
-	text = get_text('teste1.docx')
-	print('\nReading .docx file ...')
+	text = get_text('demo.docx')
+	print("\nReading 'demo.docx' file ...")
 	print('Output sample:\n')
 	print(text[0:500])
 
