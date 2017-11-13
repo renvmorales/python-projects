@@ -5,11 +5,17 @@
 # a single string which can be used for text mining and/or 
 # general text analysis purposes.
 ################################################################
-import docx
+import docx, sys
 
 
 def get_text(file_path):
-	doc = docx.Document(file_path)
+	try:
+		doc = docx.Document(file_path)
+	except docx.opc.exceptions.PackageNotFoundError:
+		print('\nInexistent file.')
+		print('\t"%s" was not found.' % file_path)
+		sys.exit()
+
 	text = []
 
 	for pgraph in doc.paragraphs:
@@ -23,7 +29,7 @@ def get_text(file_path):
 
 
 def main():
-	text = get_text('teste.docx')
+	text = get_text('teste1.docx')
 	print('\nReading .docx file ...')
 	print('Output sample:\n')
 	print(text[0:500])
