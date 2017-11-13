@@ -17,9 +17,9 @@ def get_text(file_path):
 		sys.exit()
 
 	text = []
-
 	for pgraph in doc.paragraphs:
-		text.append(pgraph.text)
+		text.append(pgraph.text) # list with all words from file
+	# (Unable to include test within tables!)
 
 	# join all paragraphs with newline breaks
 	text = '\n'.join(text)
