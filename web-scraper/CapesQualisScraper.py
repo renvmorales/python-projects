@@ -2,7 +2,7 @@
 
 import requests, sys
 from selenium import webdriver
-# from time import sleep
+from time import sleep
 from bs4 import BeautifulSoup
 
 
@@ -56,7 +56,7 @@ browser.find_element_by_xpath('//*[@id="form:estrato"]/option[2]').click()
 
 # left-click to generate the table
 browser.find_element_by_xpath('//*[@id="form:consultar"]').click()
-# sleep(3)
+sleep(1)
 
 
 
@@ -108,6 +108,7 @@ for i in range(numRows):
 
 import pandas as pd
 df = pd.DataFrame.from_records(data, columns=labels)
+
 
 
 print(df.head())
