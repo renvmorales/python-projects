@@ -3,6 +3,7 @@
 
 from selenium import webdriver
 from time import sleep
+from time import time
 import pandas as pd
 from math import ceil
 
@@ -51,65 +52,78 @@ browser.find_element_by_xpath('//*[@id="form:adicionarArea"]/span').click()
 
 
 
-# select option: A1
-browser.find_element_by_xpath('//*[@id="form:estrato"]/option[2]').click()
 
+
+xpath_class = '//*[@id="form:estrato"]/option'
+numClass = browser.find_elements_by_xpath(xpath_class)
+numClass = len(numClass)-1
+
+
+
+# list to store all rows from table
+data = []
+
+
+
+
+# begin for class name loop
+start = time()
+for num in range(numClass):
+	# select option: A1
+	browser.find_element_by_xpath(xpath_class+'['+str(num+2)+']').click()
+	className = browser.find_element_by_xpath(xpath_class+'['+str(num+2)+']').text
+
+# # select option: A1
+# browser.find_element_by_xpath('//*[@id="form:estrato"]/option[2]').click()
 
 
 # left-click to generate the table
-browser.find_element_by_xpath('//*[@id="form:consultar"]').click()
-sleep(1)
+	browser.find_element_by_xpath('//*[@id="form:consultar"]').click()
+	sleep(1)
 
 
 
-
-
-
-
-
+	if className == 'A1':
 # get web element of the column names
-cols_name = browser.find_elements_by_xpath('//*[@id="form"]/div[7]/div/table/thead/tr/th')
+		colsName = browser.find_elements_by_xpath('//*[@id="form"]/div[7]/div/table/thead/tr/th')
 
 # store in labels list the column names
-labels = []
-for name in cols_name:
-	labels.append(name.text)
-
+		labels = []
+		for name in colsName:
+			labels.append(name.text)
 
 
 
 # xpath that refers to the whole table structure for each page
-xpath_table = '//*[@id="form"]/div[7]/div/table/tbody/tr'
+	xpath_table = '//*[@id="form"]/div[7]/div/table/tbody/tr'
 
 # xpath that refers to the whole page for data scraping
-xpath_page = '//*[@id="form:j_idt63:j_idt70"]/option'
+	xpath_page = '//*[@id="form:j_idt63:j_idt70"]/option'
 
 # get general information of the table
-numPages = browser.find_elements_by_xpath(xpath_page)
-numPages = len(numPages)
+	numPages = browser.find_elements_by_xpath(xpath_page)
+	numPages = len(numPages)
 
 
 
-data = []
+	# begin for loop for each page
+	for pag in range(numPages):
+		print('\nScraping %s at page %d ...' % (className, pag+1))
+		browser.find_element_by_xpath(xpath_page+'['+str(pag+1)+']').click()
+		sleep(1)
+		controlPage = browser.find_element_by_xpath('//*[@id="form:j_idt63:div_paginacao"]/ul/li').text
+		controlPage = controlPage.split()
 
-# begin for loop for each page
-for pag in range(numPages):
-	print('\nScraping page %d ...' % (pag+1))
-	browser.find_element_by_xpath(xpath_page+'['+str(pag+1)+']').click()
-	sleep(1)
-	controlPage = browser.find_element_by_xpath('//*[@id="form:j_idt63:div_paginacao"]/ul/li').text
-	controlPage = controlPage.split()
+		# get the number of rows for this page
+		numRows = int(controlPage[2])-int(controlPage[0])+1
+		print('Number of rows:', numRows)
 
-	# get the number of rows for this page
-	numRows = int(controlPage[2])-int(controlPage[0])+1
-	print('Number of rows:', numRows)
-
-	for i in range(numRows):
-		issn = browser.find_element_by_xpath(xpath_table+'['+str(i+1)+']/td[1]/span').text
-		title = browser.find_element_by_xpath(xpath_table+'['+str(i+1)+']/td[2]').text
-		area = browser.find_element_by_xpath(xpath_table+'['+str(i+1)+']/td[3]').text
-		classf = browser.find_element_by_xpath(xpath_table+'['+str(i+1)+']/td[4]').text
-		data.append((issn, title, area, classf))
+		for i in range(numRows):
+			issn = browser.find_element_by_xpath(xpath_table+'['+str(i+1)+']/td[1]/span').text
+			title = browser.find_element_by_xpath(xpath_table+'['+str(i+1)+']/td[2]').text
+			area = browser.find_element_by_xpath(xpath_table+'['+str(i+1)+']/td[3]').text
+			classf = browser.find_element_by_xpath(xpath_table+'['+str(i+1)+']/td[4]').text
+			data.append((issn, title, area, classf))
 
 
 
@@ -118,18 +132,20 @@ for pag in range(numPages):
 browser.quit()
 
 print('\nScraping has finished.')
+print('Elapsed time: %.3f min' % ((time()-start)/60) )
 
+# create a dataframe from 'data' list
 df = pd.DataFrame.from_records(data, columns=labels)
 
 
-print('Dataframe sample:')
+print('\nDataframe sample:')
 print(df.head())
 print('\nDataframe dimension: ', df.shape)
 print('A .csv file will be generated.')
 
 
 # write ou a csv file of the dataframe
-df.to_csv('qualisA1.csv', sep=' ', index=False)
+df.to_csv('qualisMtm.csv', sep=' ', index=False)
 
 
 
