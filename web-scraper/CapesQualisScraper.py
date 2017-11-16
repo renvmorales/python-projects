@@ -1,13 +1,15 @@
 #!/usr/bin/python3
 
-import requests, sys
+
 from selenium import webdriver
 from time import sleep
-from bs4 import BeautifulSoup
+import pandas as pd
+from math import ceil
 
 
 
-# url address 
+
+# Capes qualis data url address 
 url = 'https://sucupira.capes.gov.br/sucupira/public/consultas/coleta/veiculoPublicacaoQualis/listaConsultaGeralPeriodicos.xhtml'
 
 
@@ -44,7 +46,7 @@ browser.find_element_by_xpath('//*[@id="form:area"]/option[36]').click()
 
 
 
-# add this option
+# include all previous area options
 browser.find_element_by_xpath('//*[@id="form:adicionarArea"]/span').click()
 
 
@@ -63,13 +65,6 @@ sleep(1)
 
 
 
-# res = requests.get(url)
-# res.raise_for_status()
-
-
-# # create a soup object to parse hmtl
-# soup = BeautifulSoup(res.text, 'html.parser')
-
 
 
 # get web element of the column names
@@ -83,52 +78,61 @@ for name in cols_name:
 
 
 
+# xpath that refers to the whole table structure for each page
+xpath_table = '//*[@id="form"]/div[7]/div/table/tbody/tr'
 
+# xpath that refers to the whole page for data scraping
+xpath_page = '//*[@id="form:j_idt63:j_idt70"]/option'
 
-numRows = browser.find_element_by_xpath('//*[@id="form:j_idt63:div_paginacao"]/ul/li').text
+# get general information of the table
+numPages = browser.find_elements_by_xpath(xpath_page)
+numPages = len(numPages)
 
-import re
-regex = re.compile(r'\d{1,2} a \d{1,2}')
-numRows = regex.findall(numRows)[0].split()
-numRows = int(numRows[-1])-int(numRows[0])+1
-
-
-xpath = '//*[@id="form"]/div[7]/div/table/tbody/tr'
 
 
 data = []
-for i in range(numRows):
-	issn = browser.find_element_by_xpath(xpath+'['+str(i+1)+']/td[1]/span').text
-	title = browser.find_element_by_xpath(xpath+'['+str(i+1)+']/td[2]').text
-	area = browser.find_element_by_xpath(xpath+'['+str(i+1)+']/td[3]').text
-	classf = browser.find_element_by_xpath(xpath+'['+str(i+1)+']/td[4]').text
-	data.append((issn, title, area, classf))
+
+# begin for loop for each page
+for pag in range(numPages):
+	print('\nScraping page %d ...' % (pag+1))
+	browser.find_element_by_xpath(xpath_page+'['+str(pag+1)+']').click()
+	sleep(1)
+	controlPage = browser.find_element_by_xpath('//*[@id="form:j_idt63:div_paginacao"]/ul/li').text
+	controlPage = controlPage.split()
+
+	# get the number of rows for this page
+	numRows = int(controlPage[2])-int(controlPage[0])+1
+	print('Number of rows:', numRows)
+
+	for i in range(numRows):
+		issn = browser.find_element_by_xpath(xpath_table+'['+str(i+1)+']/td[1]/span').text
+		title = browser.find_element_by_xpath(xpath_table+'['+str(i+1)+']/td[2]').text
+		area = browser.find_element_by_xpath(xpath_table+'['+str(i+1)+']/td[3]').text
+		classf = browser.find_element_by_xpath(xpath_table+'['+str(i+1)+']/td[4]').text
+		data.append((issn, title, area, classf))
 
 
 
-import pandas as pd
+
+# quit the browser
+browser.quit()
+
+print('\nScraping has finished.')
+
 df = pd.DataFrame.from_records(data, columns=labels)
 
 
-
+print('Dataframe sample:')
 print(df.head())
-print(df.shape)
+print('\nDataframe dimension: ', df.shape)
+print('A .csv file will be generated.')
 
 
-browser.quit()
-
-
-
-
-# //*[@id="form"]/div[7]/div/table/tbody/tr[1]
-
-
-# //*[@id="form"]/div[7]/div/table/tbody/tr[1]/td[1]/span
-# //*[@id="form"]/div[7]/div/table/tbody/tr[1]/td[2]
-# //*[@id="form"]/div[7]/div/table/tbody/tr[1]/td[3]
-# //*[@id="form"]/div[7]/div/table/tbody/tr[1]/td[4]
+# write ou a csv file of the dataframe
+df.to_csv('qualisA1.csv', sep=' ', index=False)
 
 
 
 
-# //*[@id="form"]/div[7]/div/table/tbody/tr[2]/td[1]/span
+
+
