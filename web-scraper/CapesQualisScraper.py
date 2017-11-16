@@ -53,7 +53,7 @@ browser.find_element_by_xpath('//*[@id="form:adicionarArea"]/span').click()
 
 
 
-
+# get the total number of classes available (A1, A2, B1, ...)
 xpath_class = '//*[@id="form:estrato"]/option'
 numClass = browser.find_elements_by_xpath(xpath_class)
 numClass = len(numClass)-1
@@ -72,9 +72,6 @@ for num in range(numClass):
 	# select option: A1
 	browser.find_element_by_xpath(xpath_class+'['+str(num+2)+']').click()
 	className = browser.find_element_by_xpath(xpath_class+'['+str(num+2)+']').text
-
-# # select option: A1
-# browser.find_element_by_xpath('//*[@id="form:estrato"]/option[2]').click()
 
 
 # left-click to generate the table
@@ -100,7 +97,7 @@ for num in range(numClass):
 # xpath that refers to the whole page for data scraping
 	xpath_page = '//*[@id="form:j_idt63:j_idt70"]/option'
 
-# get general information of the table
+# get the number of pages for the class
 	numPages = browser.find_elements_by_xpath(xpath_page)
 	numPages = len(numPages)
 
@@ -118,6 +115,7 @@ for num in range(numClass):
 		numRows = int(controlPage[2])-int(controlPage[0])+1
 		print('Number of rows:', numRows)
 
+		# get every row item and append to the list
 		for i in range(numRows):
 			issn = browser.find_element_by_xpath(xpath_table+'['+str(i+1)+']/td[1]/span').text
 			title = browser.find_element_by_xpath(xpath_table+'['+str(i+1)+']/td[2]').text
@@ -144,7 +142,7 @@ print('\nDataframe dimension: ', df.shape)
 print('A .csv file will be generated.')
 
 
-# write ou a csv file of the dataframe
+# write dataframe output csv file
 df.to_csv('qualisMtm.csv', sep=' ', index=False)
 
 
