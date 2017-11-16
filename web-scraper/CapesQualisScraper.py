@@ -136,6 +136,7 @@ print('Elapsed time: %.3f min' % ((time()-start)/60) )
 df = pd.DataFrame.from_records(data, columns=labels)
 
 
+# print some output info
 print('\nDataframe sample:')
 print(df.head())
 print('\nDataframe dimension: ', df.shape)
