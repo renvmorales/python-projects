@@ -125,12 +125,14 @@ for num in range(numClass):
 
 
 
-
 # quit the browser
 browser.quit()
 
+
+# print total elapsed time 
 print('\nScraping has finished.')
-print('Elapsed time: %.3f min' % ((time()-start)/60) )
+print('Total elapsed scraping time: %.3f min' % ((time()-start)/60) )
+
 
 # create a dataframe from 'data' list
 df = pd.DataFrame.from_records(data, columns=labels)
