@@ -2,7 +2,7 @@
 
 import requests, sys
 from selenium import webdriver
-from time import sleep
+# from time import sleep
 from bs4 import BeautifulSoup
 
 
@@ -63,10 +63,71 @@ browser.find_element_by_xpath('//*[@id="form:consultar"]').click()
 
 
 
-res = requests.get(url)
-res.raise_for_status()
+# res = requests.get(url)
+# res.raise_for_status()
 
 
-# create a soup object to parse hmtl
-soup = BeautifulSoup(res.text, 'html.parser')
+# # create a soup object to parse hmtl
+# soup = BeautifulSoup(res.text, 'html.parser')
 
+
+
+# get web element of the column names
+cols_name = browser.find_elements_by_xpath('//*[@id="form"]/div[7]/div/table/thead/tr/th')
+
+# store in labels list the column names
+labels = []
+for name in cols_name:
+	labels.append(name.text)
+
+
+
+
+
+
+numRows = browser.find_element_by_xpath('//*[@id="form:j_idt63:div_paginacao"]/ul/li').text
+
+import re
+regex = re.compile(r'\d{1,2} a \d{1,2}')
+numRows = regex.findall(numRows)[0].split()
+numRows = int(numRows[-1])-int(numRows[0])+1
+
+
+xpath = '//*[@id="form"]/div[7]/div/table/tbody/tr'
+
+
+data = []
+for i in range(numRows):
+	issn = browser.find_element_by_xpath(xpath+'['+str(i+1)+']/td[1]/span').text
+	title = browser.find_element_by_xpath(xpath+'['+str(i+1)+']/td[2]').text
+	area = browser.find_element_by_xpath(xpath+'['+str(i+1)+']/td[3]').text
+	classf = browser.find_element_by_xpath(xpath+'['+str(i+1)+']/td[4]').text
+	data.append((issn, title, area, classf))
+
+
+
+import pandas as pd
+df = pd.DataFrame.from_records(data, columns=labels)
+
+
+print(df.head())
+print(df.shape)
+
+
+browser.quit()
+
+
+
+
+# //*[@id="form"]/div[7]/div/table/tbody/tr[1]
+
+
+# //*[@id="form"]/div[7]/div/table/tbody/tr[1]/td[1]/span
+# //*[@id="form"]/div[7]/div/table/tbody/tr[1]/td[2]
+# //*[@id="form"]/div[7]/div/table/tbody/tr[1]/td[3]
+# //*[@id="form"]/div[7]/div/table/tbody/tr[1]/td[4]
+
+
+
+
+# //*[@id="form"]/div[7]/div/table/tbody/tr[2]/td[1]/span
