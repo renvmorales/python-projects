@@ -48,11 +48,21 @@ for w in nopunc.split():
 
 
 
-# word counts
+# word counter function
+def word_count(text_ls):
+# initialize dictionary with counts
+	count = {}
+
+# word counter loop
+	for w in text_ls:
+		count.setdefault(w, 0)
+		count[w]+=1
+
+	return count
 
 
-
-
+# get the word counts from the text
+word_count = word_count(text)
 
 
 
