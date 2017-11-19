@@ -4,6 +4,7 @@ import requests
 from string import punctuation
 from wordcloud import WordCloud
 import matplotlib.pyplot as plt
+from nltk.stem import PorterStemmer
 
 
 # url address with an online version of Shakespeare's Hamlet
@@ -32,6 +33,26 @@ nopunc = [char for char in hamlet if char not in punctuation]
 
 # join all characters into a single string
 nopunc = ''.join(nopunc)
+
+
+
+# word stemming object
+ps = PorterStemmer()
+
+# stem words and get all text back 
+text = []
+for w in nopunc.split():
+	text.append(ps.stem(w.lower()))
+
+
+
+
+
+# word counts
+
+
+
+
 
 
 
