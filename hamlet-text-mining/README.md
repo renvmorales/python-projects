@@ -1,7 +1,7 @@
 # hamlet-text-mining
 
-This is a simple text mining and analysis of Shakespeare's **Hamlet** using `python3`. In here, I used this [online open version](http://erdani.com/tdpl/hamlet.txt) where the whole play in English version is available in `txt` format. In order to download the full text, I connected the `requests` module to the url address.
-
+This is a simple text mining and analysis of Shakespeare's **Hamlet** using `python3`. In here, an [English online open version](http://erdani.com/tdpl/hamlet.txt) of the whole play was considered. Since the version is available in `txt` format, the `requests` module was used to connect to the url address and download the text content.
+ 
 
 
 
