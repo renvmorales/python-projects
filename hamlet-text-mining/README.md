@@ -17,10 +17,10 @@ Once preprocessing is complete, a total number of **31953 words** was found.
 
 
 ## Word Counts
-All words in upper case mode were counted. The following table list in descending order the top 10 most frequent used words.
+All words were converted to upper case mode to prevent counting the same word separetely (some words may appear at the beginning of a sentence). The following table list describes in descending order the top 10 most frequent used words.
 
 
-Word   | Word_Count
+Word   | Counts
 :------: | :---------:
 THE        | 1090
 AND        |  964
