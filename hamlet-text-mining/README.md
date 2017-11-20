@@ -34,9 +34,13 @@ HAMLET     |  465
 IN         |  434
 
 
-As expected, many of these words are very common in English (the only exception is *HAMLET*). These are called *stopwords* and barely bring new information.
+As expected, many of these words are very common in English (the only exception is *HAMLET*). These are called **stopwords** and barely bring new information.
 
 The distribution of word counts (frequency) were analyzed as well. The following figure shows the histogram of all possible counts for different words.
 
 ![alt text](wordCounts.png)
+
+The distribution of word counts is highly assimetric as very few different words appeared more than 400 times. In the other hand, the vast majority is seldom used (90% of all words appeared no more than 9 times!).
+
+
 
