@@ -5,9 +5,12 @@ This is a simple text mining and analysis of Shakespeare's **Hamlet** using `pyt
 
 
 
-## Text preprocessing
+## Text Preprocessing
 
-A very brief preprocessing was applied to the full text: all punctuation characters were removed, and abbreviation names were converted back to real names. Consequently, abbreviations such as **_Ham._** or **_Oph._** are converted to **_Hamlet_** and **_Ophelia_** for instance. This is an important step, since abbreviations can be appears several times announcing each character lines (specially true for Hamlet!), and therefore, the total counts for the respective name can be miscounted.
+A two-step preprocessing procedure was applied to the full text. Initially all punctuation characters were removed to make easy the task of analyzing words. Punctuation characters consists of the following characters:
+> !"#$%&\'()*+,-./:;<=>?@[\\]^_`{|}~
+
+Finally, abbreviation names were converted back to real names. The goal is that abbreviations like **_Ham._** or **_Oph._** are converted back to **_Hamlet_** and **_Ophelia_** for instance. This is an important step, since abbreviations can be appears several times announcing each character lines (specially true for Hamlet!), and therefore, the total counts for the respective name can be miscounted.
 
 Once preprocessing is complete, a total number of **31953 words** was found.
 
