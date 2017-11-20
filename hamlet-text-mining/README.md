@@ -12,3 +12,20 @@ A very brief preprocessing was applied to the full text: all punctuation charact
 Once preprocessing is complete, a total number of **31953 words** was found.
 
 
+
+## Word Counts
+All words in upper case mode were counted. The following table list in descending order the top 10 most frequent used words.
+
+
+Word   | Word_Count
+:------: | :---------:
+THE        | 1090
+AND        |  964
+TO         |  742
+OF         |  675
+I          |  577
+A          |  558
+YOU        |  554
+MY         |  520
+HAMLET     |  465
+IN         |  434
