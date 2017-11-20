@@ -42,6 +42,8 @@ nopunc = ''.join(nopunc)
 nopunc = abbrev2names(nopunc.split())
 
 
+print('\nText preprocessing ...')
+print('Total number of words: ', len(nopunc))
 
 
 # # word stemming object
@@ -71,7 +73,7 @@ df = df.sort_values(by=['Word_Count'],ascending=False)
 
 
 print('\nThe most frequent used words:')
-print(df.head(20))
+print(df.head(10))
 
 
 
