@@ -77,6 +77,13 @@ print(df.head(10))
 
 
 
+print('\nPlotting the histogram of all word counts ...')
+df.hist(column='Word_Count', bins=100, figsize=(10,8))
+plt.title('Word Counts')
+plt.show()
+
+
+
 
 # join all words into a long string
 text = ' '.join(nopunc)
