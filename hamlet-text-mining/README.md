@@ -32,3 +32,11 @@ YOU        |  554
 MY         |  520
 HAMLET     |  465
 IN         |  434
+
+
+As expected, many of these words are very common in English (the only exception is *HAMLET*). These are called *stopwords* and barely bring new information.
+
+The distribution of word counts (frequency) were analyzed as well. The following figure shows the histogram of all possible counts for different words.
+
+![alt text](wordCounts.png)
+
